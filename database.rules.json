@@ -1,0 +1,15 @@
+{"rules":{
+"names":{"$n":{".read":true,".write":"auth!=null&&((!data.exists()&&newData.val()===auth.uid)||(data.val()===auth.uid&&(newData.val()===null||newData.val()===auth.uid)))",".validate":"newData.val()===auth.uid&&$n.matches(/^[a-z0-9]{3,16}$/)"}},
+"players":{".read":true,".indexOn":["sc"],"$uid":{".write":"auth!=null&&auth.uid===$uid",
+"name":{".validate":"newData.isString()&&newData.val().length>=3&&newData.val().length<=16"},
+"lv":{".validate":"newData.isNumber()&&newData.val()>=1&&newData.val()<=100000&&(data.exists()?(newData.val()===data.val()||(newData.val()>data.val()&&newData.parent().child('t').val()===now&&(newData.val()-data.val())*8000<=now-data.parent().child('t').val())):(newData.val()<=30&&newData.parent().child('t').val()===now))"},
+"tm":{".validate":"newData.isNumber()&&newData.val()<=8640000&&newData.val()>=70*((newData.parent().child('lv').val()>=67?28:5+newData.parent().child('lv').val()*0.33)-1)-100&&(!data.exists()||newData.parent().child('lv').val()!==data.parent().child('lv').val()||newData.val()<=data.val())"},
+"sc":{".validate":"newData.isNumber()&&newData.val()===newData.parent().child('lv').val()*100000000+(100000000-newData.parent().child('tm').val())"},
+"t":{".validate":"newData.val()===now&&(!data.exists()||now-data.val()>=8000)"},
+"$other":{".validate":false}}},
+"saves":{"$uid":{".read":"auth!=null&&auth.uid===$uid",".write":"auth!=null&&auth.uid===$uid",
+"max":{".validate":"newData.isNumber()&&newData.val()>=1&&newData.val()<=100000"},
+"best":{"$l":{".validate":"$l.matches(/^[0-9]{1,5}$/)&&newData.isNumber()&&newData.val()>=1&&newData.val()<=1000000"}},
+"bt":{"$l":{".validate":"$l.matches(/^[0-9]{1,5}$/)&&newData.isNumber()&&newData.val()>=1&&newData.val()<=8640000"}},
+"$other":{".validate":false}}}
+}}
